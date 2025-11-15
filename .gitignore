@@ -4,3 +4,4 @@
 /QC
 /aligned_reads
 .snakemake/
+.output/
