@@ -1,7 +1,8 @@
 /venv
 /data
 /ref_genome
+/backup_ref_genome
 /QC
 /aligned_reads
 .snakemake/
-.output/
+output/

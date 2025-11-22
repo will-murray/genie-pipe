@@ -10,6 +10,7 @@ rule all:
         expand("QC/{sample}_1_fastqc.zip",sample = RUN_IDS.keys()),
         expand("QC/{sample}_2_fastqc.html",sample = RUN_IDS.keys()),
         expand("QC/{sample}_2_fastqc.zip",sample = RUN_IDS.keys()),
+        expand("output/{sample}_featureCounts.txt", sample=RUN_IDS.keys()),
         expand("output/{sample}_featureCounts.txt", sample=RUN_IDS.keys())
 
 
@@ -108,5 +109,7 @@ rule generate_feature_counts:
     shell:
         """
         mkdir -p output
-        featureCounts -a ref_genome/hg38.gtf -o output/{wildcards.sample}_featureCounts.txt aligned_reads/{wildcards.sample}.bam
+        featureCounts -p -a ref_genome/hg38.gtf -o output/{wildcards.sample}_featureCounts.txt aligned_reads/{wildcards.sample}.bam
+        cut -f 1,7 output/{wildcards.sample}_featureCounts.txt > output/{wildcards.sample}_filtered.txt
         """
+
